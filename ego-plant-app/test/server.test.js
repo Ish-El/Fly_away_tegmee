@@ -1,7 +1,10 @@
 const request = require('supertest');
-const app = require('../server');
+const { app, resetPlant } = require('../server');
 
 describe('Ego Plant API', () => {
+  beforeEach(() => {
+    resetPlant();
+  });
   test('returns initial plant state', async () => {
     const res = await request(app).get('/plant');
     expect(res.status).toBe(200);
@@ -25,7 +28,7 @@ describe('Ego Plant API', () => {
       .send({ event: 'joy' });
     expect(res.status).toBe(200);
     expect(res.body.plant.color).toBe('pink');
-    expect(res.body.plant.size).toBe(65);
+    expect(res.body.plant.size).toBe(55);
   });
 
   test('provides a prompt', async () => {

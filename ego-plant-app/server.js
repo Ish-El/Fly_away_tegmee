@@ -8,14 +8,22 @@ const sentiment = new Sentiment();
 const openaiKey = process.env.OPENAI_API_KEY;
 const openai = openaiKey ? new OpenAI({ apiKey: openaiKey }) : null;
 
+const defaultPlantState = {
+  size: 50,
+  color: 'green',
+  shape: 'round',
+};
+
+let plantState = { ...defaultPlantState };
+
+function resetPlant() {
+  plantState = { ...defaultPlantState };
+}
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-let plantState = {
-  size: 50,
-  color: 'green',
-  shape: 'round'
-};
+// plantState is mutated as the user interacts with the app
 
 const prompts = [
   'What does freedom mean to you today?',
@@ -142,4 +150,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = app;
+module.exports = { app, resetPlant };

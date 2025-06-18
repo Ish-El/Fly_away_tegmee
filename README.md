@@ -12,13 +12,18 @@ This repository contains a small project that visualizes psychological traits th
 
 2. Start the server:
    ```bash
-   node server.js
+   npm start
    ```
 
    Set the `OPENAI_API_KEY` environment variable if you want ChatGPT powered
    commentary.
 
 3. Open `http://localhost:3000` in your browser to interact with the plant visualization.
+
+4. Run tests:
+   ```bash
+   npm test
+   ```
 
 ### Features
 - Answer reflective prompts to shape your plant.

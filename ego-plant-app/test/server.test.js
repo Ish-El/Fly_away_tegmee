@@ -34,4 +34,35 @@ describe('Ego Plant API', () => {
     expect(typeof res.body.prompt).toBe('string');
     expect(res.body.prompt.length).toBeGreaterThan(0);
   });
+
+  test('uses OpenAI when API key is set', async () => {
+    const originalKey = process.env.OPENAI_API_KEY;
+    process.env.OPENAI_API_KEY = 'dummy';
+    jest.resetModules();
+
+    const createChatCompletionMock = jest.fn().mockResolvedValue({
+      data: { choices: [{ message: { content: 'Mocked comment' } }] }
+    });
+
+    jest.doMock('openai', () => {
+      return {
+        OpenAI: jest.fn().mockImplementation(() => ({
+          createChatCompletion: createChatCompletionMock
+        }))
+      };
+    });
+
+    const appWithMock = require('../server');
+    const res = await request(appWithMock)
+      .post('/answer')
+      .send({ text: 'Hello world' });
+
+    expect(res.status).toBe(200);
+    expect(res.body.comment).toBe('Mocked comment');
+    expect(createChatCompletionMock).toHaveBeenCalled();
+
+    if (originalKey === undefined) delete process.env.OPENAI_API_KEY;
+    else process.env.OPENAI_API_KEY = originalKey;
+    jest.resetModules();
+  });
 });

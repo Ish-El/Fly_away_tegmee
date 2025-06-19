@@ -13,6 +13,53 @@ let plantState = {
   color: 'green'
 };
 
+
+const prompts = [
+  'What does freedom mean to you today?',
+  'Would you rather be respected or loved?',
+  'If no one could ever judge you, what would you do tomorrow?'
+];
+
+function getRandomPrompt() {
+  return prompts[Math.floor(Math.random() * prompts.length)];
+}
+
+function generateComment() {
+  switch (plantState.shape) {
+    case 'cactus':
+      return 'Your resolve stands firm like a cactus in the desert.';
+    case 'vine':
+      return 'Emotions wind gently like growing vines.';
+    case 'spike':
+      return 'Energy bursts forth in sharp directions.';
+    case 'twist':
+      return 'Contradictions weave a twisted form.';
+    default:
+      return 'Balance maintains a simple shape.';
+  }
+}
+
+async function chatComment(traits, text) {
+  if (!openai) {
+    return generateComment();
+  }
+  try {
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: 'You are a philosophical gardening guide.' },
+        { role: 'user', content: `Mood: ${traits.mood}, Shape: ${plantState.shape}. Text: ${text}` }
+      ],
+      max_tokens: 60
+    });
+    return completion.choices[0].message.content.trim();
+  } catch (err) {
+    console.error('OpenAI error', err.message);
+    return generateComment();
+  }
+}
+
+
 function evaluateTraits(text) {
   const result = sentiment.analyze(text);
   const score = result.score;

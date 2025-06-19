@@ -11,6 +11,8 @@ If you need to lock down network connectivity, run the `scripts/restrict_network
 
 This repository contains a small project that visualizes psychological traits through a plant representation. The application is located in the `ego-plant-app` directory.
 
+![Application Demo](data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=)
+
 ## Setup
 
 1. Install dependencies:

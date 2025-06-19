@@ -47,7 +47,7 @@ async function chatComment(traits, text) {
     return generateComment();
   }
   try {
-    const completion = await openai.createChatCompletion({
+    const completion = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
         { role: 'system', content: 'You are a philosophical gardening guide.' },
@@ -55,7 +55,7 @@ async function chatComment(traits, text) {
       ],
       max_tokens: 60
     });
-    return completion.data.choices[0].message.content.trim();
+    return completion.choices[0].message.content.trim();
   } catch (err) {
     console.error('OpenAI error', err.message);
     return generateComment();

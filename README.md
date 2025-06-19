@@ -21,7 +21,7 @@ This repository contains a small project that visualizes psychological traits th
 
 2. Start the server:
    ```bash
-   node server.js
+   npm start
    ```
 
 3. Open `http://localhost:3000` in your browser to interact with the plant visualization.

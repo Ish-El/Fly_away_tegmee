@@ -26,6 +26,12 @@ This repository contains a small project that visualizes psychological traits th
 
 3. Open `http://localhost:3000` in your browser to interact with the plant visualization.
 
+### Running tests
+
+1. `cd ego-plant-app`
+2. `npm install`
+3. `npm test`
+
 ### Optional
 - User responses are analyzed using a simple sentiment detector.
 - The plant grows or shrinks and changes color based on the analysis result.

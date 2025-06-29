@@ -1,9 +1,12 @@
 const express = require('express');
 const path = require('path');
 const Sentiment = require('sentiment');
+const { OpenAI } = require('openai');
 
 const app = express();
 const sentiment = new Sentiment();
+const openaiKey = process.env.OPENAI_API_KEY;
+const openai = openaiKey ? new OpenAI({ apiKey: openaiKey }) : null;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));

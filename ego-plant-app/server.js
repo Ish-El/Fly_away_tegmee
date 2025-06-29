@@ -81,6 +81,23 @@ function updatePlant(trait) {
   }
 }
 
+function applyWeather(event) {
+  switch (event) {
+    case 'regret':
+      plantState.color = 'blue';
+      break;
+    case 'envy':
+      plantState.color = 'purple';
+      break;
+    case 'joy':
+      plantState.color = 'pink';
+      plantState.size += 5;
+      break;
+    default:
+      break;
+  }
+}
+
 app.post('/answer', (req, res) => {
   const { text } = req.body;
   if (!text) return res.status(400).json({ error: 'No text provided' });
@@ -89,11 +106,22 @@ app.post('/answer', (req, res) => {
   res.json({ trait, plant: plantState });
 });
 
+app.post('/weather', (req, res) => {
+  const { event } = req.body;
+  if (!event) return res.status(400).json({ error: 'No event provided' });
+  applyWeather(event);
+  res.json({ plant: plantState });
+});
+
 app.get('/plant', (req, res) => {
   res.json(plantState);
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;

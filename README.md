@@ -30,3 +30,21 @@ This repository contains a small project that visualizes psychological traits th
 - User responses are analyzed using a simple sentiment detector.
 - The plant grows or shrinks and changes color based on the analysis result.
 
+## Demo
+
+1. Open your browser to `http://localhost:3000` after starting the server.
+2. Enter a short phrase or sentence in the input box describing your mood or a response to the prompt. For example:
+
+   > "I feel hopeful today"
+
+   > "This task made me frustrated"
+
+   The text can be any brief description—positive, negative, or neutral.
+3. Click **Submit**. The server analyzes the sentiment of your text:
+   - **Positive** text increases the plant's size and keeps it green.
+   - **Negative** text decreases the plant's size and turns it brown.
+   - **Neutral** text leaves the size unchanged but turns the plant yellow.
+4. The plant visualization on the page updates immediately to reflect the new state, allowing you to see how your input affects its growth.
+
+Feel free to experiment with different statements to observe how the plant responds.
+
